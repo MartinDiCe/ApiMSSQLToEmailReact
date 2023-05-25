@@ -53,9 +53,11 @@ const sendReportByEmail = async (requestData) => {
   }
 };
 
-export default {
+const apiExport = {
   getReport,
   downloadCSV,
   downloadExcel,
   sendReportByEmail,
 };
+
+export default apiExport;
