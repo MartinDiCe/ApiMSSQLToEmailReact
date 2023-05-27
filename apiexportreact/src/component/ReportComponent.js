@@ -1,49 +1,44 @@
-import React, { Component } from 'react';
-import ApiExport from '../apies/ApiExport';
+import React, { useEffect, useState } from 'react';
+import apiExport from '../apies/ApiExport';
 
-class ReportComponent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      reportData: [],
-      isLoading: false,
-      error: null,
-    };
-  }
+const ReportComponent = ({ reportData }) => {
+  const [data, setData] = useState([]);
 
-  componentDidMount() {
-    this.fetchReportData();
-  }
+  useEffect(() => {
+    fetchReportData();
+  }, []);
 
-  fetchReportData = async () => {
+  const fetchReportData = async () => {
     try {
-      const reportData = await ApiExport.getReport();
-      this.setState({ reportData, isLoading: false });
+      const date = new Date().toISOString().slice(0, 10);
+      console.log('Fecha:', date);
+      const data = await apiExport.getReport(date); // Llama a getReport directamente sin hacer referencia a ReportComponent
+      setData(data);
     } catch (error) {
-      this.setState({ error: error.message, isLoading: false });
+      console.error('Error al obtener el informe:', error);// Depuración: muestra el error capturado
     }
   };
 
-  render() {
-    const { reportData, isLoading, error } = this.state;
+  return (
+    <div>
+      <h1>Report Component</h1>
+      <ul>
+        {data.map((report, index) => (
+          <li key={index}>{report}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
 
-    if (isLoading) {
-      return React.createElement('div', null, 'Loading...');
-    }
-
-    if (error) {
-      return React.createElement('div', null, 'Error: ', error);
-    }
-
-    return (
-      React.createElement('div', null,
-        React.createElement('h1', null, 'Report Component'),
-        React.createElement('ul', null,
-          reportData.map((report, index) => React.createElement('li', { key: index }, report))
-        )
-      )
-    );
+ReportComponent.getReport = async (date) => {
+  try {
+    const response = await apiExport.get(`/export/getReport?date=${date}`);
+    return response.data;
+  } catch (error) {
+    throw new Error('Error al obtener el informe');
   }
-}
+};
 
 export default ReportComponent;
+
