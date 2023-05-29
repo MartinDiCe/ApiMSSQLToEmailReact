@@ -18,16 +18,21 @@ function App() {
   }, [selectedDate]);
 
   const handleDateChange = (event) => {
-    setSelectedDate(event.target.date); // Corrección aquí
+    setSelectedDate(event.target.value);
   };
 
-  const handleShowReport = () => {
-    getReportData(selectedDate);
+  const handleShowReport = async () => {
+    try {
+      await getReportData(selectedDate);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const getReportData = async (date) => {
     try {
       const data = await ReportComponent.getReport(date);
+      console.log(data);
       setReportData(data);
     } catch (error) {
       console.error(error);
