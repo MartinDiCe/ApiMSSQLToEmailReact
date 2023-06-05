@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-//Conexión con la API
-const API_BASE_URL = 'http://localhost:8008/export';
+// Conexión con la API
+const API_BASE_URL = 'http://apies.apiexport.diceprojects.com:8008/export';
 
 const getReport = async (date) => {
   try {
@@ -53,11 +53,9 @@ const sendReportByEmail = async (requestData) => {
   }
 };
 
-const apiExport = {
+export {
   getReport,
   downloadCSV,
   downloadExcel,
   sendReportByEmail,
 };
-
-export default apiExport;

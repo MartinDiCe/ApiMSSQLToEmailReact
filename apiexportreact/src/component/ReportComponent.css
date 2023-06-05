@@ -1,0 +1,61 @@
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.report-table th,
+.report-table td {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.report-table th {
+  background-color: #f2f2f2;
+}
+
+.report-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.report-table .error-message {
+  cursor: pointer;
+  position: relative;
+}
+
+.report-table .error-message::after {
+  content: attr(data-full-text);
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  background-color: #f2f2f2;
+  padding: 10px;
+  white-space: normal;
+  word-wrap: break-word;
+  max-width: 300px;
+  z-index: 9999;
+}
+
+.report-table .error-message:hover::after {
+  display: block;
+}
+
+.warning-popup {
+  display: none;
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #f2f2f2;
+  padding: 10px;
+  white-space: normal;
+  word-wrap: break-word;
+  max-width: 300px;
+  z-index: 9999;
+}
+
+.report-table .error-message:hover .warning-popup {
+  display: block;
+}
