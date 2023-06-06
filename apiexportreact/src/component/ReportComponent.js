@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { getReport } from '../apies/ApiExport';
 import './ReportComponent.css';
-import Popup from './ReportComponentPopUp'; 
-
+import ReportComponentPopUp from './ReportComponentPopUp';
 
 const ReportComponent = () => {
   const [data, setData] = useState([]);
@@ -26,9 +25,7 @@ const ReportComponent = () => {
         setData(uniqueData);
         setError(null);
       }
-      console.log('Data: ', uniqueData);
     } catch (error) {
-      console.error('Error al obtener el informe:', error);
       setError('Error al obtener el informe');
     }
   }, [selectedDate]);
@@ -36,6 +33,8 @@ const ReportComponent = () => {
   useEffect(() => {
     fetchReportData();
   }, [fetchReportData]);
+
+  console.log('Data:', data);
 
   const handleDateChange = (event) => {
     setSelectedDate(event.target.value);
@@ -57,7 +56,7 @@ const ReportComponent = () => {
     if (currentItems.length === 0) {
       return <div>Sin datos para la fecha seleccionada</div>;
     }
-  
+
     return (
       <table className="report-table">
         <thead>
@@ -98,11 +97,12 @@ const ReportComponent = () => {
   };
 
   const handleOpenPopup = (report) => {
-    setSelectedReport(report);
+    setSelectedReport(report); // Pasar el objeto report completo
     setIsPopupOpen(true);
   };
 
   const handleClosePopup = () => {
+    setSelectedReport(null);
     setIsPopupOpen(false);
   };
 
@@ -146,11 +146,10 @@ const ReportComponent = () => {
         ))}
       </div>
       {isPopupOpen && (
-        <Popup report={selectedReport} onClose={handleClosePopup} />
-      )}
+  <ReportComponentPopUp report={selectedReport} items={data} onClose={handleClosePopup} />
+)}
     </div>
   );
 };
 
 export { getReport, ReportComponent };
-

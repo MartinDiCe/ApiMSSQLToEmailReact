@@ -1,0 +1,44 @@
+/* ReportComponentPopUp.css */
+
+.popup-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .popup-inner {
+    width: 80%;
+    max-width: 600px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    position: relative;
+  }
+  
+  .popup-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .popup-table th,
+  .popup-table td {
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .popup-table th {
+    font-weight: bold;
+    background-color: #f2f2f2;
+  }
+  
+  .popup-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
